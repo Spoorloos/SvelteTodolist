@@ -19,7 +19,7 @@
 	}
 </script>
 
-<form on:submit|preventDefault={ addFormSubmit }>
+<form on:submit|preventDefault={ addFormSubmit } enterkeyhint="enter">
 	<input
 		placeholder="Add tasks to the todolist..."
 		on:input={ () => addError = null }/>
