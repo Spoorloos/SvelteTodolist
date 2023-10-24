@@ -4,11 +4,9 @@
 </script>
 
 <main>
+	<AddForm/>
 	<TodoList/>
 </main>
-<footer>
-	<AddForm/>
-</footer>
 
 <style>
 	main {
@@ -16,17 +14,7 @@
         transform: translate(-50%, 0);
         left: 50%;
 		width: 30vw;
-		padding: 10px;
 		text-align: center;
 		color: white;
-	}
-
-	footer {
-		position: fixed;
-		transform: translate(-50%, 0);
-		left: 50%;
-		bottom: 50px;
-		width: 35%;
-		text-align: center;
 	}
 </style>

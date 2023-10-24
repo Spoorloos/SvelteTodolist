@@ -2,6 +2,8 @@
 	import { scale } from 'svelte/transition';
     import todoList from '../stores/TodoList.js';
 
+	let transRunning = 0;
+
     function removeButtonClick(index) {
 		todoList.update(list => list.filter((_, idx) => idx !== index));
 	}
@@ -18,7 +20,11 @@
 
 <ul>
     {#each $todoList as item, index}
-		<li transition:scale>
+		<li 
+			transition:scale 
+			on:outroend={ () => transRunning-- }
+			on:introstart={ () => transRunning++ }>
+
 			<span class="item-text">{item}</span>
 			<div class="item-buttons">
 				<div>
@@ -29,7 +35,9 @@
 			</div>
 		</li>
     {:else}
-        <p>Your todolist is empty.</p>
+		{#if transRunning < 1}
+			<p in:scale>Your todolist is empty.</p>
+		{/if}
     {/each}
 </ul>
 
@@ -75,5 +83,9 @@
 		background-color: #EE5057;
 		font-weight: bold;
 		color: white;
+	}
+
+	p {
+		font-weight: bold;
 	}
 </style>

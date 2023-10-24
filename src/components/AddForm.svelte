@@ -19,14 +19,14 @@
 </script>
 
 <form on:submit|preventDefault={ addFormSubmit }>
-	{#if addError}
-		<p class="error-message" transition:fade={{ duration: 100 }}>{ addError }</p>
-	{/if}
-
     <input
         required
         placeholder="Add tasks to the todolist..."
         on:input={ () => addError = undefined }/>
+
+	{#if addError}
+		<p class="error-message" transition:fade={{ duration: 100 }}>{ addError }</p>
+	{/if}
 </form>
 
 <style>
