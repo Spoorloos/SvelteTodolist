@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 
 const todoList = writable(
-    JSON.parse(localStorage.getItem('todolist') ?? "[]")
+    JSON.parse(localStorage.getItem('todolist')) ?? []
 );
 
 todoList.subscribe(value => {
