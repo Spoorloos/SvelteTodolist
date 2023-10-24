@@ -1,9 +1,9 @@
 <script>
 	import todoList from '../stores/TodoList.js';
-	import { slide, scale, crossfade } from 'svelte/transition';
+	import { scale, crossfade } from 'svelte/transition';
     import { flip } from 'svelte/animate';
 
-	const [ send, receive ] = crossfade({ fallback: slide });
+	const [ send, receive ] = crossfade({ fallback: scale });
 
 	function removeButtonClick(index) {
 		todoList.update(list => list.filter((_, i) => i !== index));
@@ -66,7 +66,6 @@
 
 	.item-text {
 		font-weight: bold;
-		box-shadow: none;
 		color: white;
 		word-wrap: normal;
 	}

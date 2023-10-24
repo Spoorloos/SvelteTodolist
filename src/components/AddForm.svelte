@@ -5,22 +5,22 @@
 	let addError;
 
 	function addFormSubmit({ target }) {
-		todoList.update(list => {
-			const value = target[0].value;
-			if (list.includes(value)) {
+		const value = target[0].value;
+		if (!value) {
+			addError = 'Please enter a task';
+		} else {
+			if ($todoList.includes(value)) {
 				addError = 'Task is already in the todolist.';
 			} else {
-				list.push(value);
+				todoList.set([ ...$todoList, value ]);
 				target.reset();
 			}
-			return list;
-		});
+		}
 	}
 </script>
 
 <form on:submit|preventDefault={ addFormSubmit }>
 	<input
-		required
 		placeholder="Add tasks to the todolist..."
 		on:input={ () => addError = null }/>
 
