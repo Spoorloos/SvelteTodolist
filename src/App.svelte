@@ -11,8 +11,8 @@
 <style>
 	main {
 		position: absolute;
-        transform: translate(-50%, 0);
-        left: 50%;
+		transform: translate(-50%, 0);
+		left: 50%;
 		width: 30vw;
 		text-align: center;
 		color: white;

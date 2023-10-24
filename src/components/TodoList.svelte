@@ -1,11 +1,12 @@
 <script>
-	import { scale, slide } from 'svelte/transition';
-    import todoList from '../stores/TodoList.js';
+	import todoList from '../stores/TodoList.js';
+	import { slide, scale, crossfade } from 'svelte/transition';
+    import { flip } from 'svelte/animate';
 
-	let transRunning = 0;
+	const [ send, receive ] = crossfade({ fallback: slide });
 
-    function removeButtonClick(index) {
-		todoList.update(list => list.filter((_, idx) => idx !== index));
+	function removeButtonClick(index) {
+		todoList.update(list => list.filter((_, i) => i !== index));
 	}
 
 	function moveItemClick(oldIndex, newIndex) {
@@ -19,12 +20,13 @@
 </script>
 
 <ul>
-    {#each $todoList as item, index}
-		<li transition:slide
-			on:outrostart={ () => transRunning++ }
-			on:outroend={ () => transRunning-- }>
+	{#each $todoList as task, index (task)}
+		<li
+			in:receive={{ key: task }}
+			out:send={{ key: task }}
+			animate:flip={{ duration: 250 }}>
 
-			<span class="item-text">{item}</span>
+			<span class="item-text">{task}</span>
 			<div class="item-buttons">
 				<div>
 					<button on:click={ () => moveItemClick(index, index - 1) }>▲</button>
@@ -33,20 +35,18 @@
 				<button class="remove-button" on:click={ () => removeButtonClick(index) }>Remove</button>
 			</div>
 		</li>
-    {:else}
-		{#if transRunning < 1}
-			<p in:scale>Your todolist is empty.</p>
-		{/if}
-    {/each}
+	{:else}
+		<p in:scale>Your todolist is empty.</p>
+	{/each}
 </ul>
 
 <style>
-    ul {
+	ul {
 		list-style-type: none;
 		padding-left: 0;
 	}
 
-    li {
+	li {
 		margin-top: 10px;
 		border-left: thick solid #EE5057;
 		border-radius: 10px;

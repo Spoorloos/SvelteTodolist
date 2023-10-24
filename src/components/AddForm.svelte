@@ -1,28 +1,28 @@
 <script>
-    import { slide } from 'svelte/transition';
-    import todoList from '../stores/TodoList.js';
-    
-    let addError;
+	import { slide } from 'svelte/transition';
+	import todoList from '../stores/TodoList.js';
 
-    function addFormSubmit({ target }) {
-        todoList.update(list => {
+	let addError;
+
+	function addFormSubmit({ target }) {
+		todoList.update(list => {
 			const value = target[0].value;
-			if (!list.includes(value)) {
+			if (list.includes(value)) {
+				addError = 'Task is already in the todolist.';
+			} else {
 				list.push(value);
 				target.reset();
-			} else {
-				addError = 'Task is already in the todolist.';
 			}
 			return list;
 		});
-    }
+	}
 </script>
 
 <form on:submit|preventDefault={ addFormSubmit }>
-    <input
-        required
-        placeholder="Add tasks to the todolist..."
-        on:input={ () => addError = undefined }/>
+	<input
+		required
+		placeholder="Add tasks to the todolist..."
+		on:input={ () => addError = null }/>
 
 	{#if addError}
 		<p class="error-message" transition:slide>{ addError }</p>
@@ -32,7 +32,7 @@
 <style>
 	input {
 		width: 100%;
-        border-radius: 10px;
+		border-radius: 10px;
 		box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
 		border: none;
 		background-color: rgba(255,255,255,0.05);
