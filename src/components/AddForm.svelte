@@ -1,5 +1,5 @@
 <script>
-    import { fade } from 'svelte/transition';
+    import { slide } from 'svelte/transition';
     import todoList from '../stores/TodoList.js';
     
     let addError;
@@ -25,7 +25,7 @@
         on:input={ () => addError = undefined }/>
 
 	{#if addError}
-		<p class="error-message" transition:fade={{ duration: 100 }}>{ addError }</p>
+		<p class="error-message" transition:slide>{ addError }</p>
 	{/if}
 </form>
 

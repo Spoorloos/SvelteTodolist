@@ -1,5 +1,5 @@
 <script>
-	import { scale } from 'svelte/transition';
+	import { scale, slide } from 'svelte/transition';
     import todoList from '../stores/TodoList.js';
 
 	let transRunning = 0;
@@ -20,10 +20,9 @@
 
 <ul>
     {#each $todoList as item, index}
-		<li 
-			transition:scale 
-			on:outroend={ () => transRunning-- }
-			on:introstart={ () => transRunning++ }>
+		<li transition:slide
+			on:outrostart={ () => transRunning++ }
+			on:outroend={ () => transRunning-- }>
 
 			<span class="item-text">{item}</span>
 			<div class="item-buttons">
