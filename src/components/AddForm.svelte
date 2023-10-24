@@ -6,7 +6,7 @@
 
 	function addFormSubmit({ target }) {
 		const value = target[0].value;
-		if (!value) {
+		if (value.trim().length === 0) {
 			addError = 'Please enter a task';
 		} else {
 			if ($TodoList.includes(value)) {
