@@ -1,16 +1,16 @@
 <script>
-	import todoList from '../stores/TodoList.js';
-	import { scale, crossfade } from 'svelte/transition';
-    import { flip } from 'svelte/animate';
+	import TodoList from '../stores/TodoList.js';
+	import ListItem from './ListItem.svelte';
 
-	const [ send, receive ] = crossfade({ fallback: scale });
+	import { scale } from 'svelte/transition';
+	import { flip } from 'svelte/animate';
 
 	function removeButtonClick(index) {
-		todoList.update(list => list.filter((_, i) => i !== index));
+		TodoList.update(list => list.filter((_, i) => i !== index));
 	}
 
 	function moveItemClick(oldIndex, newIndex) {
-		todoList.update(list => {
+		TodoList.update(list => {
 			if (list[newIndex]) {
 				[ list[oldIndex], list[newIndex] ] = [ list[newIndex], list[oldIndex] ];
 			}
@@ -20,21 +20,13 @@
 </script>
 
 <ul>
-	{#each $todoList as task, index (task)}
-		<li
-			in:receive={{ key: task }}
-			out:send={{ key: task }}
-			animate:flip={{ duration: 250 }}>
-
-			<span class="item-text">{task}</span>
-			<div class="item-buttons">
-				<div>
-					<button on:click={ () => moveItemClick(index, index - 1) }>▲</button>
-					<button on:click={ () => moveItemClick(index, index + 1) }>▼</button>
-				</div>
-				<button class="remove-button" on:click={ () => removeButtonClick(index) }>Remove</button>
-			</div>
-		</li>
+	{#each $TodoList as task, index (task)}
+		<div animate:flip={{ duration: 250 }}>
+			<ListItem { task }
+				on:up={ () => moveItemClick(index, index - 1) }
+				on:down={ () => moveItemClick(index, index + 1) }
+				on:remove={ () => removeButtonClick(index) }/>
+		</div>
 	{:else}
 		<p in:scale>Your todolist is empty.</p>
 	{/each}
@@ -44,43 +36,6 @@
 	ul {
 		list-style-type: none;
 		padding-left: 0;
-	}
-
-	li {
-		margin-top: 10px;
-		border-left: thick solid #EE5057;
-		border-radius: 10px;
-		background-color: rgba(0,0,0,0.1);
-		box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
-		padding: 5px;
-		text-align: left;
-	}
-
-	button {
-		border-radius: 10px;
-		background-color: rgba(255,255,255,0.05);
-		box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
-		border: none;
-		color: white;
-	}
-
-	.item-text {
-		font-weight: bold;
-		color: white;
-		word-wrap: normal;
-	}
-
-	.item-buttons {
-		display: flex;
-		justify-content: space-between;
-		background: none;
-		margin-top: 10px;
-	}
-
-	.remove-button {
-		background-color: #EE5057;
-		font-weight: bold;
-		color: white;
 	}
 
 	p {

@@ -1,6 +1,6 @@
 <script>
 	import { slide } from 'svelte/transition';
-	import todoList from '../stores/TodoList.js';
+	import TodoList from '../stores/TodoList.js';
 
 	let addError;
 
@@ -9,10 +9,10 @@
 		if (!value) {
 			addError = 'Please enter a task';
 		} else {
-			if ($todoList.includes(value)) {
+			if ($TodoList.includes(value)) {
 				addError = 'Task is already in the todolist.';
 			} else {
-				todoList.set([ ...$todoList, value ]);
+				TodoList.set([ ...$TodoList, value ]);
 				target.reset();
 			}
 		}
