@@ -1,11 +1,11 @@
 <script>
     import { fade } from 'svelte/transition';
-    import TodoList from '../stores/TodoList.js';
+    import todoList from '../stores/TodoList.js';
     
     let addError;
 
     function addFormSubmit({ target }) {
-        TodoList.update(list => {
+        todoList.update(list => {
 			const value = target[0].value;
 			if (!list.includes(value)) {
 				list.push(value);

@@ -1,13 +1,13 @@
 <script>
-    import { fade } from 'svelte/transition';
-    import TodoList from '../stores/TodoList.js';
+	import { scale } from 'svelte/transition';
+    import todoList from '../stores/TodoList.js';
 
     function removeButtonClick(index) {
-		TodoList.update(list => list.filter((_, idx) => idx !== index));
+		todoList.update(list => list.filter((_, idx) => idx !== index));
 	}
 
 	function moveItemClick(oldIndex, newIndex) {
-		TodoList.update(list => {
+		todoList.update(list => {
 			if (list[newIndex]) {
 				[ list[oldIndex], list[newIndex] ] = [ list[newIndex], list[oldIndex] ];
 			}
@@ -17,19 +17,17 @@
 </script>
 
 <ul>
-    {#each $TodoList as item, index}
-        <li transition:fade>
-            <div class="list-item">
-                <input readonly class="item-text" value={item}>
-                <div class="item-buttons">
-                    <div>
-                        <button class="selector-button" on:click={ () => moveItemClick(index, index - 1) }>▲</button>
-                        <button class="selector-button" on:click={ () => moveItemClick(index, index + 1) }>▼</button>
-                    </div>
-                    <button class="remove-button" on:click={ () => removeButtonClick(index) }>Remove</button>
-                </div>
-            </div>
-        </li>
+    {#each $todoList as item, index}
+		<li transition:scale>
+			<span class="item-text">{item}</span>
+			<div class="item-buttons">
+				<div>
+					<button on:click={ () => moveItemClick(index, index - 1) }>▲</button>
+					<button on:click={ () => moveItemClick(index, index + 1) }>▼</button>
+				</div>
+				<button class="remove-button" on:click={ () => removeButtonClick(index) }>Remove</button>
+			</div>
+		</li>
     {:else}
         <p>Your todolist is empty.</p>
     {/each}
@@ -41,47 +39,41 @@
 		padding-left: 0;
 	}
 
-	li {
+    li {
 		margin-top: 10px;
-	}
-
-	input, button {
-		border-radius: 10px;
-		background: none;
-		box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
-		border: none;
-		color: white;
-	}
-
-    .list-item {
 		border-left: thick solid #EE5057;
 		border-radius: 10px;
 		background-color: rgba(0,0,0,0.1);
 		box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
 		padding: 5px;
+		text-align: left;
+	}
+
+	button {
+		border-radius: 10px;
+		background-color: rgba(255,255,255,0.05);
+		box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
+		border: none;
+		color: white;
 	}
 
 	.item-text {
-		width: 100%;
 		font-weight: bold;
 		box-shadow: none;
-		margin: 5px 0 5px 0;
 		color: white;
+		word-wrap: normal;
 	}
 
 	.item-buttons {
 		display: flex;
 		justify-content: space-between;
 		background: none;
+		margin-top: 10px;
 	}
 
 	.remove-button {
 		background-color: #EE5057;
 		font-weight: bold;
 		color: white;
-	}
-
-	.selector-button {
-		background-color: rgba(255,255,255,0.05);
 	}
 </style>

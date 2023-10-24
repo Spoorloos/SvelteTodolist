@@ -1,3 +1,11 @@
 import { writable } from 'svelte/store';
 
-export default writable([]);
+const todoList = writable(
+    JSON.parse(localStorage.getItem('todolist') ?? "[]")
+);
+
+todoList.subscribe(value => {
+    localStorage.setItem('todolist', JSON.stringify(value));
+});
+
+export default todoList;
