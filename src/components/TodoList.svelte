@@ -28,7 +28,7 @@
 				on:remove={ () => removeButtonClick(index) }/>
 		</div>
 	{:else}
-		<p in:scale>Your todolist is empty.</p>
+		<strong in:scale>Your todolist is empty.</strong>
 	{/each}
 </ul>
 
@@ -36,9 +36,5 @@
 	ul {
 		list-style-type: none;
 		padding-left: 0;
-	}
-
-	p {
-		font-weight: bold;
 	}
 </style>
