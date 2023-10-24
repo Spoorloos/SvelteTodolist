@@ -3,9 +3,6 @@
 	import TodoList from './components/TodoList.svelte';
 </script>
 
-<header>
-	<h2>Todolist</h2>
-</header>
 <main>
 	<TodoList/>
 </main>
@@ -14,17 +11,6 @@
 </footer>
 
 <style>
-	header {
-		text-align: center;
-		background-color: rgba(35,35,35,0.5);
-		padding: 10px;
-	}
-
-	h2 {
-		color: white;
-		margin: 0;
-	}
-
 	main {
 		position: absolute;
         transform: translate(-50%, 0);
