@@ -1,29 +1,36 @@
 <script>
     import { createEventDispatcher } from 'svelte';
-	import { scale, crossfade } from 'svelte/transition';
+	import { slide, scale, crossfade } from 'svelte/transition';
+
+    export let task, index;
 
     const dispatch = createEventDispatcher();
     const [ send, receive ] = crossfade({ fallback: scale });
 
-    export let task;
+	let mouseIsOver = false;
 </script>
 
-<li
+<div class="list-item"
+	on:mouseenter={ () => mouseIsOver = true }
+	on:mouseleave={ () => mouseIsOver = false }
     in:receive={{ key: task }}
     out:send={{ key: task }}>
 
-    <span>{task}</span>
-    <div class="item-buttons">
-        <div>
-            <button class="up-button" on:click={ () => dispatch('up') }>▲</button>
-            <button class="down-button" on:click={ () => dispatch('down') }>▼</button>
-        </div>
-        <button class="remove-button" on:click={ () => dispatch('remove') }>Remove</button>
-    </div>
-</li>
+    <h4>{index + 1}. {task}</h4>
+
+	{#if mouseIsOver} 
+		<div class="item-buttons" transition:slide>
+			<div>
+				<button class="up-button" on:click={ () => dispatch('up') }>▲</button>
+				<button class="down-button" on:click={ () => dispatch('down') }>▼</button>
+			</div>
+			<button class="remove-button" on:click={ () => dispatch('remove') }>Remove</button>
+		</div>
+	{/if}
+</div>
 
 <style>
-    li {
+    .list-item {
 		margin-bottom: 10px;
 		border-left: thick solid #EE5057;
 		border-radius: 10px;
@@ -40,10 +47,11 @@
 		border: none;
 	}
 
-	span {
+	h4 {
 		font-weight: bold;
 		color: white;
 		word-wrap: normal;
+		margin: 0;
 	}
 
 	.item-buttons {

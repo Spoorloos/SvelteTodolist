@@ -19,11 +19,10 @@
 	}
 </script>
 
-<ul>
+<div class="list">
 	{#each $TodoList as task, index (task)}
 		<div animate:flip={{ duration: 250 }}>
-			<ListItem { task }
-				isLast={ index === $TodoList.length - 1 }
+			<ListItem { index } { task }
 				on:up={ () => moveItemClick(index, index - 1) }
 				on:down={ () => moveItemClick(index, index + 1) }
 				on:remove={ () => removeButtonClick(index) }/>
@@ -31,11 +30,10 @@
 	{:else}
 		<strong in:scale>Your todolist is empty.</strong>
 	{/each}
-</ul>
+</div>
 
 <style>
-	ul {
-		list-style-type: none;
-		padding-left: 0;
+	.list {
+		margin-top: 20px;
 	}
 </style>
