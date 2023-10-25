@@ -21,7 +21,7 @@
 
 <form on:submit|preventDefault={ addFormSubmit }>
 	<input
-		enterkeyhint="enter"
+		enterkeyhint="done"
 		placeholder="Add tasks to the todolist..."
 		on:input={ () => addError = null }/>
 
