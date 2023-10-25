@@ -63,7 +63,8 @@ button:disabled {
 	cursor: auto;
 }
 
-button:not(:disabled):hover,
-button:not(:disabled):active {
-	opacity: 0.5;
+@media (hover: hover) {
+	button:not(:disabled):hover {
+		opacity: 0.75;
+	}
 }

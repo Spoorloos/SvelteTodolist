@@ -25,7 +25,7 @@
 		}
 	}
 
-	@media screen and (max-width: 680px) {
+	@media screen and (max-width: 640px) {
 		main {
 			width: 100vw;
 			padding: 0 10px 0px 10px;
