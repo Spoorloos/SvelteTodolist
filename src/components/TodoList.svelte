@@ -23,6 +23,7 @@
 	{#each $TodoList as task, index (task)}
 		<div animate:flip={{ duration: 250 }}>
 			<ListItem { task }
+				isLast={ index === $TodoList.length - 1 }
 				on:up={ () => moveItemClick(index, index - 1) }
 				on:down={ () => moveItemClick(index, index + 1) }
 				on:remove={ () => removeButtonClick(index) }/>

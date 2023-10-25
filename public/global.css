@@ -49,20 +49,19 @@ input:focus {
 }
 
 button {
-	color: #333;
+	color: white;
 	background-color: #f4f4f4;
 	outline: none;
 	cursor: pointer;
+	transition: opacity 0.2s;
+	user-select: none;
 }
 
 button:disabled {
-	color: #ccc;
+	opacity: 0.25;
+	cursor: auto;
 }
 
-button:not(:disabled):active {
-	opacity: 0.6;
-}
-
-button:hover {
-	opacity: 0.8;
+button:not(:disabled):hover {
+	opacity: 0.5;
 }
