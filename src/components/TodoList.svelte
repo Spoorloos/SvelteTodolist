@@ -19,7 +19,7 @@
 	}
 </script>
 
-<div id="list">
+<div class="todo-list">
 	{#each $TodoList as task, index (task)}
 		<div animate:flip={{ duration: 250 }}>
 			<ListItem
@@ -34,7 +34,7 @@
 </div>
 
 <style>
-	#list {
+	.todo-list {
 		display: flex;
 		flex-direction: column;
 		gap: 10px;

@@ -6,33 +6,43 @@
 	export let task, index;
 
 	const dispatch = createEventDispatcher();
-	const [send, receive] = crossfade({ fallback: scale });
+	const [ send, receive ] = crossfade({ fallback: scale });
 
 	let mouseIsOver = false;
 </script>
 
-<div
-	id="list-item"
-	on:mouseenter={() => (mouseIsOver = true)}
-	on:mouseleave={() => (mouseIsOver = false)}
+<div class="list-item"
+	on:mouseenter={ () => mouseIsOver = true }
+	on:mouseleave={ () => mouseIsOver = false }
 	in:receive={{ key: task }}
 	out:send={{ key: task }}
 >
 	<h3>{index + 1}. {task}</h3>
 
 	{#if mouseIsOver}
-		<div id="item-buttons" transition:slide>
-			<div id="priority-buttons">
-				<button disabled={ index === 0 } on:click={() => dispatch("up")}>▲</button>
-				<button disabled={ index === $TodoList.length - 1 } on:click={() => dispatch("down")}>▼</button>
+		<div class="item-buttons" transition:slide>
+			<div class="priority-buttons">
+				<button
+					disabled={ index === 0 }
+					on:click={ () => dispatch("up") }
+				>▲</button>
+
+				<button
+					disabled={ index === $TodoList.length - 1 }
+					on:click={ () => dispatch("down") }
+				>▼</button>
 			</div>
-			<button id="remove-button" on:click={() => dispatch("remove")}>Remove</button>
+
+			<button
+				class="remove-button"
+				on:click={ () => dispatch("remove") }
+			>Remove</button>
 		</div>
 	{/if}
 </div>
 
 <style>
-	#list-item {
+	.list-item {
 		border-left: thick solid #ee5057;
 		border-radius: 10px;
 		background-color: rgba(0, 0, 0, 0.1);
@@ -53,27 +63,27 @@
 		border: none;
 	}
 
-	#item-buttons {
+	.item-buttons {
 		display: flex;
 		justify-content: space-between;
 		background: none;
 		margin-top: 10px;
 	}
 
-	#remove-button {
+	.remove-button {
 		background-color: #ee5057;
 		font-weight: bold;
 	}
 
-	#priority-buttons {
+	.priority-buttons {
 		user-select: none;
 	}
 
-	#priority-buttons > :first-child {
+	.priority-buttons > :first-child {
 		border-radius: 10px 0 0 10px;
 	}
 
-	#priority-buttons > :last-child {
+	.priority-buttons > :last-child {
 		border-radius: 0 10px 10px 0;
 	}
 </style>
