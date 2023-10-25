@@ -5,14 +5,14 @@
 	let addError;
 
 	function addFormSubmit({ target }) {
-		const value = target[0].value;
-		if (value.trim().length === 0) {
+		const value = target[0].value.trim();
+		if (value.length === 0) {
 			addError = 'Please enter a task';
 		} else {
 			if ($TodoList.includes(value)) {
 				addError = 'Task is already in the todolist.';
 			} else {
-				TodoList.set([ ...$TodoList, value ]);
+				TodoList.set([ value, ...$TodoList ]);
 				target.reset();
 			}
 		}
