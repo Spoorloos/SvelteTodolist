@@ -33,7 +33,6 @@
 
 <style>
 	.list-item {
-		margin-bottom: 10px;
 		border-left: thick solid #ee5057;
 		border-radius: 10px;
 		background-color: rgba(0, 0, 0, 0.1);

@@ -17,6 +17,7 @@
 		width: 30vw;
 		text-align: center;
 		color: white;
+		padding: 20px;
 	}
 
 	@media screen and (max-width: 1200px) {
@@ -28,7 +29,6 @@
 	@media screen and (max-width: 640px) {
 		main {
 			width: 100vw;
-			padding: 0 10px 0px 10px;
 		}
 	}
 </style>
