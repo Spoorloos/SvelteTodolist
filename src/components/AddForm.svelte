@@ -27,7 +27,7 @@
 		bind:value/>
 
 	{#if addError}
-		<p class="error-message" transition:slide>{ addError }</p>
+		<strong transition:slide>{ addError }</strong>
 	{/if}
 </form>
 
@@ -41,8 +41,9 @@
 		color: white;
 	}
 
-	.error-message {
+	strong {
+		display: block;
+		margin-top: 20px;
 		color: #EE5057;
-		font-weight: 500;
 	}
 </style>
