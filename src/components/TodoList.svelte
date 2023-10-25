@@ -21,8 +21,8 @@
 
 <div class="list">
 	{#each $TodoList as task, index (task)}
-		<div animate:flip={{ duration: 250 }}>
-			<ListItem { index } { task }
+		<div animate:flip>
+			<ListItem { task } { index }
 				on:up={ () => moveItemClick(index, index - 1) }
 				on:down={ () => moveItemClick(index, index + 1) }
 				on:remove={ () => removeButtonClick(index) }/>

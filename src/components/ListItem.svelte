@@ -40,18 +40,18 @@
 		text-align: left;
 	}
 
-	button {
-		border-radius: 10px;
-		background-color: rgba(255,255,255,0.05);
-		box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
-		border: none;
-	}
-
 	h3 {
 		font-weight: bold;
 		color: white;
 		word-wrap: normal;
 		margin: 0;
+	}
+
+	button {
+		border-radius: 10px;
+		background-color: rgba(255,255,255,0.05);
+		box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
+		border: none;
 	}
 
 	.item-buttons {
