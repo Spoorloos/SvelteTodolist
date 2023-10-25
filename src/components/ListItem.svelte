@@ -1,41 +1,43 @@
 <script>
-    import { createEventDispatcher } from 'svelte';
-	import { slide, scale, crossfade } from 'svelte/transition';
+	import TodoList from "../stores/TodoList";
+	import { createEventDispatcher } from "svelte";
+	import { slide, scale, crossfade } from "svelte/transition";
 
-    export let task, index;
+	export let task, index;
 
-    const dispatch = createEventDispatcher();
-    const [ send, receive ] = crossfade({ fallback: scale });
+	const dispatch = createEventDispatcher();
+	const [send, receive] = crossfade({ fallback: scale });
 
 	let mouseIsOver = false;
 </script>
 
-<div class="list-item"
-	on:mouseenter={ () => mouseIsOver = true }
-	on:mouseleave={ () => mouseIsOver = false }
-    in:receive={{ key: task }}
-    out:send={{ key: task }}>
+<div
+	class="list-item"
+	on:mouseenter={() => (mouseIsOver = true)}
+	on:mouseleave={() => (mouseIsOver = false)}
+	in:receive={{ key: task }}
+	out:send={{ key: task }}
+>
+	<h3>{index + 1}. {task}</h3>
 
-    <h3>{index + 1}. {task}</h3>
-
-	{#if mouseIsOver} 
+	{#if mouseIsOver}
 		<div class="item-buttons" transition:slide>
-			<div>
-				<button class="up-button" on:click={ () => dispatch('up') }>▲</button>
-				<button class="down-button" on:click={ () => dispatch('down') }>▼</button>
+			<div class="priority-buttons">
+				<button disabled={ index === 0 } on:click={() => dispatch("up")}>▲</button>
+				<button disabled={ index === $TodoList.length - 1 } on:click={() => dispatch("down")}>▼</button>
 			</div>
-			<button class="remove-button" on:click={ () => dispatch('remove') }>Remove</button>
+			<button class="remove-button" on:click={() => dispatch("remove")}>Remove</button>
 		</div>
 	{/if}
 </div>
 
 <style>
-    .list-item {
+	.list-item {
 		margin-bottom: 10px;
-		border-left: thick solid #EE5057;
+		border-left: thick solid #ee5057;
 		border-radius: 10px;
-		background-color: rgba(0,0,0,0.1);
-		box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
+		background-color: rgba(0, 0, 0, 0.1);
+		box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 		padding: 5px;
 		text-align: left;
 	}
@@ -49,8 +51,6 @@
 
 	button {
 		border-radius: 10px;
-		background-color: rgba(255,255,255,0.05);
-		box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
 		border: none;
 	}
 
@@ -62,15 +62,19 @@
 	}
 
 	.remove-button {
-		background-color: #EE5057;
+		background-color: #ee5057;
 		font-weight: bold;
 	}
 
-	.up-button {
+	.priority-buttons {
+		user-select: none;
+	}
+
+	.priority-buttons > :first-child {
 		border-radius: 10px 0 0 10px;
 	}
 
-	.down-button {
+	.priority-buttons > :last-child {
 		border-radius: 0 10px 10px 0;
 	}
 </style>
