@@ -16,7 +16,7 @@
     in:receive={{ key: task }}
     out:send={{ key: task }}>
 
-    <h4>{index + 1}. {task}</h4>
+    <h3>{index + 1}. {task}</h3>
 
 	{#if mouseIsOver} 
 		<div class="item-buttons" transition:slide>
@@ -47,7 +47,7 @@
 		border: none;
 	}
 
-	h4 {
+	h3 {
 		font-weight: bold;
 		color: white;
 		word-wrap: normal;
