@@ -9,10 +9,14 @@
 		const trimmedValue = value.trim();
 		if (trimmedValue.length === 0) {
 			addError = 'Please enter a task';
-		} else if ($TodoList.includes(trimmedValue)) {
+		} else if ($TodoList.find(val => val.task === trimmedValue)) {
 			addError = 'Task is already in the todolist.';
 		} else {
-			$TodoList.push(trimmedValue);
+			$TodoList.push({
+				name: trimmedValue,
+				completed: false,
+				id: Math.random().toString() // Horrible way to do this
+			});
 			$TodoList = $TodoList;
 			event.target.reset();
 		}

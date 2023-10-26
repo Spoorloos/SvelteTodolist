@@ -20,7 +20,7 @@
 </script>
 
 <div class="todo-list">
-	{#each $TodoList as task, index (task)}
+	{#each $TodoList as task, index (task.id)}
 		<div animate:flip={{ duration: 250 }}>
 			<ListItem
 				{ task } { index }

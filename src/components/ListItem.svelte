@@ -11,13 +11,15 @@
 	let mouseIsOver = false;
 </script>
 
-<div class="list-item"
+<div
+	class="list-item"
+	class:completed={ task.completed }
 	on:mouseenter={ () => mouseIsOver = true }
 	on:mouseleave={ () => mouseIsOver = false }
-	in:receive={{ key: task }}
-	out:send={{ key: task }}
+	in:receive={{ key: task.id }}
+	out:send={{ key: task.id }}
 >
-	<h3>{index + 1}. {task}</h3>
+	<h3>{index + 1}. {task.name}</h3>
 
 	{#if mouseIsOver}
 		<div class="item-buttons" transition:slide>
@@ -33,22 +35,34 @@
 				>▼</button>
 			</div>
 
-			<button
-				class="remove-button"
-				on:click={ () => dispatch("remove") }
-			>Remove</button>
+			<div>
+				<button 
+					class="complete-button"
+					disabled={ task.completed }
+					on:click={ () => { task.completed = true; $TodoList = $TodoList; }}
+				>Complete</button>
+
+				<button
+					class="remove-button"
+					on:click={ () => dispatch("remove") }
+				>Remove</button>
+			</div>
 		</div>
 	{/if}
 </div>
 
 <style>
 	.list-item {
-		border-left: thick solid #ee5057;
+		border-left: thick solid #50ee75;
 		border-radius: 10px;
 		background-color: rgba(0, 0, 0, 0.1);
 		box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 		padding: 5px;
 		text-align: left;
+	}
+
+	.completed {
+		border-left: thick solid #509aee;
 	}
 
 	h3 {
@@ -61,6 +75,7 @@
 	button {
 		border-radius: 10px;
 		border: none;
+		font-weight: bold;
 	}
 
 	.item-buttons {
@@ -68,14 +83,6 @@
 		justify-content: space-between;
 		background: none;
 		margin-top: 10px;
-	}
-
-	.remove-button {
-		background-color: #ee5057;
-		font-weight: bold;
-	}
-
-	.priority-buttons {
 		user-select: none;
 	}
 
@@ -85,5 +92,13 @@
 
 	.priority-buttons > :last-child {
 		border-radius: 0 10px 10px 0;
+	}
+
+	.complete-button {
+		background-color: #509aee;
+	}
+
+	.remove-button {
+		background-color: #ee5057;
 	}
 </style>
